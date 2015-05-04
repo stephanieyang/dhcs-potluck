@@ -1,0 +1,66 @@
+{% extends 'Connect_FMS/base.html' %}
+{% block content %}
+<!--wrap the page content do not style this-->
+<div id="page-content">
+  <div class="fluid-container" >
+    <div class="col-md-4 col-sm-6">
+    <!-- Mobile Version -->
+      {% for posts in post %}
+        <div class="panel panel-default">
+          <!-- <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Profiles</h4></div> -->
+          <div class="panel-body">
+              <div class="w88 dib">
+                <h5 class="noborder nopadbot media-heading nomargbot">{{posts.user.get_full_name}}</h5>
+                <span id="datetimeofpost" class="ofh"> {{posts.created_at|date:"g:i A"}} on {{posts.created_at|date:"l, F j"}}</span>
+              </div>
+              <div class="w10 dib">
+                <p> {{posts.percentvotes}}% </p>
+              </div>
+            <hr>
+            <p class="ofh"> <strong>{{posts.location.full_location_name}}</strong></p>
+            {% if posts.image == null %}
+            {% else %}
+              <div class="row">
+                <a class="db thumbnail w88 center-block" href="#">
+                  <img class="img-responsive center-block" src="//placehold.it/200x200">
+                </a>
+              </div>
+            {% endif %}
+            <div class="">
+              <p> {{posts.description}} </p>
+            </div>
+            <hr>
+            <div class="row" style="margin-top: 15px;">
+              <div class="center-block text-center morecomments">
+                <span>{{posts.numcomments}} Comment{% if posts.numcomments != 1 %}s{% endif %}</span>
+              </div>
+              {% for comment in posts.getcomments %}
+                <div class="row commentsrow hidden">
+                  <h6 class="dib"> <strong>{{ comment.user.first_name}}</strong> </h6>
+                  <h6 class="dib fwlighter" style="margin-bottom: 5px;"> {{ comment.description }} </h6>
+                  <p id="datetimeofpost" class="ofh">{{ comment.created_at|date:"g:i A"}} on {{comment.created_at|date:"l, F j" }}</p>
+                </div>
+                <div class="row hidden center-block">
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div> 
+      {% empty %}
+        <h2>No Posts have been made in the newsfeed</h2>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- /.container -->
+
+ <script>
+$(document).ready(function(){
+  $(".morecomments").click(function(){
+    var comment = $(".hidden");
+    comment.toggleClass("hidden");
+    $(this).toggleClass("hidden");
+  });
+});
+</script>
+{% endblock %}

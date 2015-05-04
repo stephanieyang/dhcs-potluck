@@ -1,0 +1,36 @@
+{% extends "Connect_FMS/base.html" %}
+
+{% block content %}
+
+
+
+
+<!-- User creating an account for the first time  -->
+<div id="page-content">
+    <div class="container">
+        <h1>Login</h1>
+        <div class="col-sm-12 col-lg-12">
+            <div class="row">
+                <form action='login' method='post'>{% csrf_token %}
+                    {{ form.as_p }}
+                    <input type='submit' value='Submit' />
+                </form>
+            </div>
+        </div>
+        <hr>
+    <!-- When a user already has an account and is logging in -->
+        <h1>Signup</h1>
+        <div class="col-sm-12 col-lg-12">
+            <div class="row">
+                <form action='register' method='post'>{% csrf_token %}
+                    {{ form1.as_p }}
+                    <input type='submit' value='Submit' />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
